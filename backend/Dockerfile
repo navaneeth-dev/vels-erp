@@ -1,4 +1,4 @@
-FROM apline:latest
+FROM alpine:latest
 
 RUN apk add -v build-base
 RUN apk add -v go
