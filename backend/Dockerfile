@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM apline:latest
 
 RUN apk add -v build-base
 RUN apk add -v go
@@ -19,7 +19,7 @@ WORKDIR /pb
 # line and rely on the go.sum lockfile.
 RUN go get github.com/pocketbase/pocketbase
 
-RUN go build -o pocketbase
+RUN CGO_CFLAGS="-D_LARGEFILE64_SOURCE" go build -o pocketbase
 WORKDIR /
 
 EXPOSE 8080
