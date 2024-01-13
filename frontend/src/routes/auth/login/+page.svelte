@@ -6,40 +6,17 @@
     import {Input} from "$lib/components/ui/input";
 </script>
 
-<Card.Root class="max-w-2xl mt-4 mx-auto">
-    <Card.Header class="space-y-1">
-        <Card.Title class="text-2xl">Login</Card.Title>
-        <Card.Description>Enter your email below to login into your account</Card.Description>
-    </Card.Header>
-    <Card.Content class="grid gap-4">
-        <div class="grid grid-cols-2 gap-6">
-            <Button variant="outline" disabled>
-                <!--                <Icons.gitHub class="mr-2 h-4 w-4"/>-->
-                GitHub
-            </Button>
-            <Button variant="outline" disabled>
-                <!--                <Icons.google class="mr-2 h-4 w-4"/>-->
-                Google
-            </Button>
-        </div>
-        <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-                <span class="w-full border-t"/>
-            </div>
-            <div class="relative flex justify-center text-xs uppercase">
-                <span class="bg-card px-2 text-muted-foreground"> Or continue with </span>
-            </div>
-        </div>
-        <div class="grid gap-2">
-            <Label for="email">Email</Label>
-            <Input id="email" type="email" placeholder="m@example.com"/>
-        </div>
-        <div class="grid gap-2">
-            <Label for="password">Password</Label>
-            <Input id="password" type="password"/>
-        </div>
-    </Card.Content>
-    <Card.Footer>
-        <Button class="w-full">Create account</Button>
-    </Card.Footer>
-</Card.Root>
+<form class="grid gap-4 mx-auto max-w-2xl mt-4" method="POST">
+    <h1 class="scroll-m-20 text-center text-3xl font-semibold tracking-tight transition-colors first:mt-0">
+        Welcome
+        Back</h1>
+    <div class="grid gap-2">
+        <Label for="email">Username</Label>
+        <Input id="email" type="text" placeholder="john" name="username" value="test"/>
+    </div>
+    <div class="grid gap-2">
+        <Label for="password">Password</Label>
+        <Input id="password" type="password" name="password" value="12345678"/>
+    </div>
+    <Button class="w-full" type="submit">Login</Button>
+</form>

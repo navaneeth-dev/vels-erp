@@ -10,16 +10,16 @@
         Dashboard
     </a>
     <a
-            href="/"
+            href="/auth/register"
             class="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
     >
-        Customers
+        Register
     </a>
     <a
-            href="/"
+            href="/auth/login"
             class="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
     >
-        Products
+        Login
     </a>
     <a
             href="/"
