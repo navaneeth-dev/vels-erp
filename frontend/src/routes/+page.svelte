@@ -1,4 +1,9 @@
 <script lang="ts">
+    import {Calendar} from "$lib/components/ui/calendar";
+    import {today, getLocalTimeZone} from "@internationalized/date";
+
+    let value = today(getLocalTimeZone());
+
     export let data;
 </script>
 
@@ -10,3 +15,8 @@
     <h2>{data.user.id}</h2>
     <h2>{data.user.name}</h2>
 {/if}
+
+<div class="flex">
+
+    <Calendar bind:value class="border rounded-md shadow"/>
+</div>
