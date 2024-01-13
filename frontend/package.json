@@ -39,6 +39,7 @@
 		"@internationalized/date": "^3.5.1",
 		"bits-ui": "^0.14.0",
 		"clsx": "^2.1.0",
+		"pocketbase": "^0.20.2",
 		"radix-icons-svelte": "^1.2.1",
 		"tailwind-merge": "^2.2.0",
 		"tailwind-variants": "^0.1.20"
