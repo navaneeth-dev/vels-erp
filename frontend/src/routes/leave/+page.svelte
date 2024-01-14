@@ -40,10 +40,14 @@
 
     /** @type {import('./$types').PageData} */
     export let data;
+    const workingDays = data.workingDays.map(date => new Date(date.date).getDate());
+    const absentDays = data.absentDays.map(date => new Date(date.expand.date.date).getDate());
+    console.log(absentDays)
     const isDateDisabled: CalendarPrimitive.Props['isDateDisabled'] = (date) => {
-        // console.log(date);
-        // return !data.workingDays.includes(date);
-        return true;
+        return !workingDays.includes(date.day);
+    }
+    const isDateUnavailable: CalendarPrimitive.Props['isDateUnavailable'] = (date) => {
+        return absentDays.includes(date.day);
     }
 </script>
 
@@ -84,6 +88,8 @@
                                 maxValue={today('Etc/UTC')}
                                 calendarLabel="Date of birth"
                                 initialFocus
+                                {isDateDisabled}
+                                {isDateUnavailable}
                                 onValueChange={(v) => {
               if (v) {
                 $formStore.dob = v.toString();

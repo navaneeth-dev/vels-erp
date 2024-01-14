@@ -9,9 +9,15 @@ export async function load(event) {
         sort: '-created',
         filter: 'date <= @monthEnd && date >= @monthStart'
     });
+    const absentDays = await event.locals.pb.collection("absent_days").getFullList({
+        sort: '-created',
+        filter: 'date.date <= @monthEnd && date.date >= @monthStart',
+        expand: 'date'
+    });
 
     return {
-        workingDays: workingDays.map(day => new Date(day.date).getDate()),
+        workingDays,
+        absentDays,
         form: await superValidate(formSchema)
     };
 }
@@ -24,6 +30,12 @@ export const actions: Actions = {
                 form
             });
         }
+        const record = await event.locals.pb.collection("absent_days").create({
+            user: {id: event.locals.user?.id},
+            date: {
+                id: 1
+            }
+        });
         return {
             form
         };
