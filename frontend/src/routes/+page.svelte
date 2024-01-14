@@ -2,7 +2,6 @@
     import type {PageData} from "./$types";
 
     export let data: PageData;
-    console.log(data)
     const percentage = ((data.workingDays - data.absentDays.length) / data.workingDays) * 100;
 </script>
 
