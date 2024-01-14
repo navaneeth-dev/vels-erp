@@ -32,8 +32,8 @@
         dateStyle: "long"
     });
 
-    let value: DateValue | undefined = $formStore.dob
-        ? parseDate($formStore.dob)
+    let value: DateValue | undefined = $formStore.date
+        ? parseDate($formStore.date)
         : undefined;
 
     let placeholder: DateValue = today(getLocalTimeZone());
@@ -42,7 +42,6 @@
     export let data;
     const workingDays = data.workingDays.map(date => new Date(date.date).getDate());
     const absentDays = data.absentDays.map(date => new Date(date.expand.date.date).getDate());
-    console.log(absentDays)
     const isDateDisabled: CalendarPrimitive.Props['isDateDisabled'] = (date) => {
         return !workingDays.includes(date.day);
     }
@@ -60,13 +59,13 @@
             let:config
             class="space-y-6"
     >
-        <Form.Field {config} name="dob">
+        <Form.Field {config} name="date">
             <Form.Item class="flex flex-col">
-                <Form.Label for="dob">Date Of Leave</Form.Label>
+                <Form.Label for="date">Date Of Leave</Form.Label>
                 <Popover.Root>
-                    <Form.Control id="dob" let:attrs>
+                    <Form.Control id="date" let:attrs>
                         <Popover.Trigger
-                                id="dob"
+                                id="date"
                                 {...attrs}
                                 class={cn(
               buttonVariants({ variant: "outline" }),
@@ -92,9 +91,12 @@
                                 {isDateUnavailable}
                                 onValueChange={(v) => {
               if (v) {
-                $formStore.dob = v.toString();
+                 const foundWorkingDay = data.workingDays.find(({ date }) => {
+                    return new Date(date).getDate() == v.day;
+                });
+                  $formStore.date = foundWorkingDay.id;
               } else {
-                $formStore.dob = "";
+                $formStore.date = "";
               }
             }}
                         />

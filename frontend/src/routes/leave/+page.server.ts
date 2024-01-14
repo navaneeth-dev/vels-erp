@@ -2,6 +2,7 @@ import {superValidate} from "sveltekit-superforms/server";
 import {formSchema} from "./schema";
 import type {Actions} from "./$types";
 import {fail} from "@sveltejs/kit";
+import {ClientResponseError} from "pocketbase";
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load(event) {
@@ -30,12 +31,28 @@ export const actions: Actions = {
                 form
             });
         }
-        const record = await event.locals.pb.collection("absent_days").create({
-            user: {id: event.locals.user?.id},
-            date: {
-                id: 1
+
+        if (!event.locals.pb)
+            return fail(403, {
+                form
+            });
+
+        try {
+            const record = await event.locals.pb.collection("absent_days").create({
+                user: event.locals.pb?.authStore?.model?.id,
+                date: form.data.date
+            });
+        } catch (err) {
+            if (err instanceof ClientResponseError) {
+                console.log(err.message);
+                return fail(500, {
+                    form
+                })
             }
-        });
+            return fail(500, {
+                form
+            })
+        }
         return {
             form
         };
